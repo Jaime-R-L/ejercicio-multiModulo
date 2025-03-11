@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>ejercicios.maven</groupId>
+    <artifactId>ejercicio-multimodulo</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <modules>
+        <module>core</module>
+        <module>main</module>
+        <module>operations</module>
+    </modules>
+
+    <properties>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <modulos.version>1.0-SNAPSHOT</modulos.version>
+        <modulos.groupId>ejercicios.maven</modulos.groupId>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-core</artifactId>
+                <version>5.10.0</version>
+                <scope>test</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.30</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
+    <profiles>
+        <!-- Perfil 1: Usa mvnrepository.com y JDK 19 -->
+        <profile>
+            <id>maven-repo-jdk19</id>
+            <activation>
+                <!-- Se activa si existe un archivo en la ruta config/enable-maven-repo.flag -->
+                <file>
+                    <exists>${project.basedir}/config/enable-maven-repo.flag</exists>
+                </file>
+            </activation>
+            <repositories>
+                <repository>
+                    <id>maven-repo</id>
+                    <url>https://repo1.maven.org/maven2/</url>
+                </repository>
+            </repositories>
+            <properties>
+                <java.version>19</java.version>
+                <db.driver>org.postgresql.Driver</db.driver>
+            </properties>
+            <build>
+                <resources>
+                    <resource>
+                        <directory>src/main/resources</directory>
+                        <excludes>
+                            <exclude>spring-config/**</exclude>
+                        </excludes>
+                    </resource>
+                </resources>
+            </build>
+        </profile>
+
+        <!-- Perfil 2: Usa repo.spring.io y JDK 17 -->
+        <profile>
+            <id>spring-repo-jdk17</id>
+            <activation>
+                <!-- Se activa si la propiedad useSpringRepo es true -->
+                <property>
+                    <name>useSpringRepo</name>
+                    <value>true</value>
+                </property>
+            </activation>
+            <repositories>
+                <repository>
+                    <id>spring-repo</id>
+                    <url>https://repo.spring.io/ui/packages</url>
+                </repository>
+            </repositories>
+            <properties>
+                <java.version>17</java.version>
+                <db.driver>com.mysql.cj.jdbc.Driver</db.driver>
+            </properties>
+            <build>
+                <resources>
+                    <resource>
+                        <directory>src/main/resources</directory>
+                        <excludes>
+                            <exclude>maven-config/*.xml</exclude> <!-- Expresión regular para excluir archivos XML -->
+                        </excludes>
+                    </resource>
+                </resources>
+            </build>
+        </profile>
+    </profiles>
+</project>
