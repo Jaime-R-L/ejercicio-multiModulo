@@ -9,7 +9,10 @@ import java.util.Scanner;
 
 public class CalculatorService {
 
-    public static void runCalculator() {
+    public CalculatorService() {
+    }
+
+    public void runCalculator() {
         String mensaje = "Select an operation:\n1. Split\n2. Sum\n3. String concatenation\n4. Exit\nOption: ";
 
         String operacion = InteracionesConsola.leerConsola(mensaje);
@@ -19,7 +22,7 @@ public class CalculatorService {
         System.out.println(result);
     }
 
-    private static String seleccionOperacion(String operacion) {
+    private String seleccionOperacion(String operacion) {
         String result = "";
         switch (operacion) {
             case "1":
@@ -53,7 +56,7 @@ public class CalculatorService {
         return result;
     }
 
-    private static List<Double> introduccionOperandos() {
+    private List<Double> introduccionOperandos() {
         List<Double> datos = new ArrayList<>();
 
         String mensaje1 = "Introduzca el primer valor: ";

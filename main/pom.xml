@@ -19,9 +19,9 @@
 
     <dependencies>
         <dependency>
-            <groupId>${modulos.groupId}</groupId>
+            <groupId>${parent.groupId}</groupId>
             <artifactId>core</artifactId>
-            <version>${modulos.version}</version>
+            <version>${parent.version}</version>
         </dependency>
     </dependencies>
 
