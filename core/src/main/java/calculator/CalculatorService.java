@@ -9,6 +9,8 @@ import java.util.Scanner;
 
 public class CalculatorService {
 
+    BasicOpertationsService basicOpertationsService = new BasicOpertationsService();
+
     public CalculatorService() {
     }
 
@@ -32,13 +34,13 @@ public class CalculatorService {
                 String dato1 = InteracionesConsola.leerConsola(mensaje1);
                 String dato2 = InteracionesConsola.leerConsola(mensaje2);
 
-                String[] cadenas = BasicOpertationsService.split(dato1, dato2);
+                String[] cadenas = basicOpertationsService.split(dato1, dato2);
                 result = "Parte 1: " + cadenas[0];
                 result += ", Parte 2: " + cadenas[1];
                 break;
             case "2":
                 List<Double> datos = introduccionOperandos();
-                result = String.valueOf(BasicOpertationsService.suma(datos.get(0), datos.get(1)));
+                result = String.valueOf(basicOpertationsService.suma(datos.get(0), datos.get(1)));
 
                 break;
             case "3":
@@ -48,7 +50,7 @@ public class CalculatorService {
                 String texto1 = InteracionesConsola.leerConsola(mensaje3);
                 String texto2 = InteracionesConsola.leerConsola(mensaje4);
 
-                result = BasicOpertationsService.concatenation(texto1, texto2);
+                result = basicOpertationsService.concatenation(texto1, texto2);
                 break;
             case "4":
                 break;

@@ -1,6 +1,8 @@
 package operations;
 
 public class BasicOpertationsService {
+    public BasicOpertationsService() {
+    }
 
     public Double suma(double a, double b) {
         return a + b;
